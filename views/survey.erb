@@ -2,11 +2,11 @@
 <h1><%= survey.name() %></h1>
 
 <% if survey.questions().any?() %>
-<ul>
+<ol>
   <% survey.questions().each() do |question| %>
   <li><a href="/questions/<%= question.id() %>"><%= question.question() %></a></li>
   <% end %>
-</ul>
+</ol>
 <% end %>
 
 <hr>

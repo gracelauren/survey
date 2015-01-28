@@ -30,3 +30,17 @@ get("/questions/:id") do
   @question_id = params.fetch('id').to_i()
   erb(:question)
 end
+
+patch("/surveys/:id") do
+  @survey_id = params.fetch('id').to_i()
+  survey = Survey.find(@survey_id)
+  survey.update({:name => params.fetch('name')})
+  redirect('/')
+end
+
+delete("/surveys/:id") do
+  @survey_id = params.fetch('id').to_i()
+  survey = Survey.find(@survey_id)
+  survey.delete()
+  redirect('/')
+end
