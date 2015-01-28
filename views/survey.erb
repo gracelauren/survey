@@ -1,0 +1,25 @@
+<% survey = Survey.find(@survey_id) %>
+<h1><%= survey.name() %></h1>
+
+<% if survey.questions().any?() %>
+<ul>
+  <% survey.questions().each() do |question| %>
+  <li><a href="/questions/<%= question.id() %>"><%= question.question() %></a></li>
+  <% end %>
+</ul>
+<% end %>
+
+<hr>
+<hr>
+
+<form action="/questions" method="post">
+  <input type = "hidden" name="survey_id" value="<%= @survey_id %>">
+
+  <label for="question">Add a question:</label>
+  <input id="question" name="question" type="text">
+
+  <button class='btn btn-sm btn-success' type='submit'><span class='glyphicon glyphicon-tree-deciduous'></span> Add Question</button>
+</form>
+
+<hr>
+<a href="/" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-refresh"></span> Back</a>

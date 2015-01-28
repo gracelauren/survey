@@ -1,0 +1,6 @@
+<% question = Question.find(@question_id) %>
+
+<h1><%= question.question() %></h1>
+
+<hr>
+<a href="/surveys/<%= question.survey_id().to_s() %>" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-refresh"></span> Back</a>

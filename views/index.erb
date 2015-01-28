@@ -1,0 +1,20 @@
+<h1>Surveys:</h1>
+
+<% if Survey.any?() %>
+  <ul>
+  <% Survey.all().each() do |survey| %>
+    <li><a href="/surveys/<%= survey.id() %>"><%= survey.name() %></a></li>
+  <% end %>
+  </ul>
+<% end %>
+
+<hr>
+<hr>
+
+<form action="/surveys" method="post">
+
+  <label for="name">Add a survey title:</label>
+  <input id="name" name="name" type="text">
+
+  <button class='btn btn-sm btn-success' type='submit'><span class='glyphicon glyphicon-tree-deciduous'></span> Add Survey</button>
+</form>
