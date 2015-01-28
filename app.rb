@@ -44,3 +44,19 @@ delete("/surveys/:id") do
   survey.delete()
   redirect('/')
 end
+
+post("/reorder") do
+  survey = Survey.find(params.fetch('survey_id').to_i())
+  order_nums = params.fetch('order_nums')
+  survey.change_order(order_nums)
+  url = "/surveys/" + survey.id().to_s()
+  redirect(url)
+end
+
+delete("/questions/:id") do
+  question_id = params.fetch('id').to_i()
+  survey_id = params.fetch('survey_id').to_i()
+  Question.find(question_id).delete()
+  url = "/surveys/" + survey_id.to_s()
+  redirect(url)
+end

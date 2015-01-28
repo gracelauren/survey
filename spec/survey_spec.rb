@@ -11,5 +11,4 @@ describe(Survey) do
     end
   end
 
-
 end

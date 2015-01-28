@@ -1,13 +1,48 @@
 <% survey = Survey.find(@survey_id) %>
-<h1><%= survey.name() %></h1>
 
-<% if survey.questions().any?() %>
-<ol>
-  <% survey.questions().each() do |question| %>
-  <li><a href="/questions/<%= question.id() %>"><%= question.question() %></a></li>
-  <% end %>
-</ol>
-<% end %>
+<div class="panel panel-default">
+  <div class="panel-heading input-lg"><%= survey.name() %></div>
+  <div class="panel-body">
+    <p>Below lists all the survey questions.</p>
+    <p>To reorder, change at least two corresponding numbers.</p>
+  </div>
+    <% if survey.questions().any?() %>
+
+    <form action="/reorder" method="post">
+      <input type="hidden" name="survey_id" value="<%= @survey_id %>">
+      <table class="table table-hover">
+
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Question<th>
+          </tr>
+        </thead>
+
+          <tbody>
+            <% survey.questions().each() do |question| %>
+            <tr>
+
+              <td>
+                <input type="number" name="order_nums[]" placeholder="<%= question.order_num() %>">
+                <input type="hidden" name="question_id" value="<%= question.id() %>">
+              </td>
+
+              <td>
+                <a href="/questions/<%= question.id() %>"><%= question.question() %></a></li>
+              </td>
+
+            </tr>
+
+            <% end %>
+        </tbody>
+
+      </table>
+      <button class="btn btn-sm btn-warning" type="submit" name="reorder">Reorder</button>
+    </form>
+      <% end %>
+    </div>
+  </div>
 
 <hr>
 <hr>
@@ -16,7 +51,7 @@
   <input type = "hidden" name="survey_id" value="<%= @survey_id %>">
 
   <label for="question">Add a question:</label>
-  <input id="question" name="question" type="text">
+  <input id="question" name="question" type="text" autofocus>
 
   <button class='btn btn-sm btn-success' type='submit'><span class='glyphicon glyphicon-tree-deciduous'></span> Add Question</button>
 </form>
