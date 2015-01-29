@@ -2,5 +2,38 @@
 
 <h1><%= question.question() %></h1>
 
+<% if ! question.answers().any?() && @display == nil %>
+  <form action="/questions/<%= @question_id %>/answers" method="get">
+    <input type="radio" name="display" value="checkbox">Checkbox<br>
+    <input type="radio" name="display" value="text">Text Box<br>
+    <input type="radio" name="display" value="dropdown">Dropdown<br>
+    <button type="submit" class="btn btn-success btn-sm">Submit</button>
+  </form>
+<% else %>
+
+  <% if @display == "checkbox" %>
+
+    <form action="/questions/<%= @question_id %>/answers" method="post">
+      <input type="hidden" name="display" value="checkbox">
+      <label for="answer">Add an answer:</label>
+      <input id="answer" name="answer" type="text" autofocus>
+      <button class='btn btn-sm btn-success' type='Add'><span class='glyphicon glyphicon-tree-deciduous'></span> Add Answer</button>
+    </form>
+
+    <% if question.answers().any?() %>
+      <% question.answers().each() do |answer| %>
+        <div class='checkbox'>
+          <label>
+            <input type="checkbox" name="answer_ids[]" value="<%= answer.id() %>"> <%= answer.answer() %>
+          </label>
+        </div>
+      <% end %>
+    <% end %>
+
+  <% end %>
+
+<% end %>
+
+
 <hr>
 <a href="/surveys/<%= question.survey_id().to_s() %>" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-refresh"></span> Back</a>

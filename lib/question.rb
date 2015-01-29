@@ -1,6 +1,7 @@
 class Question < ActiveRecord::Base
   validates(:question, {:presence => true})
   belongs_to :survey
+  has_many :answers
   before_save(:capitalize_question, :count)
 
 
@@ -15,7 +16,7 @@ private
 
       survey = self.survey()
       if survey.questions().any?()
-        order_num = survey.questions().last(-1).order_num + 1
+        order_num = survey.questions().last().order_num + 1
       else
         order_num = 1
       end

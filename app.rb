@@ -60,3 +60,17 @@ delete("/questions/:id") do
   url = "/surveys/" + survey_id.to_s()
   redirect(url)
 end
+
+get('/questions/:id/answers') do
+  @question_id = params.fetch('id').to_i()
+  @display = params.fetch('display')
+  erb(:question)
+end
+
+post('/questions/:id/answers') do
+  @question_id = params.fetch('id').to_i()
+  @display = params.fetch('display')
+  answer = params.fetch('answer')
+  Question.find(@question_id).answers.create({ :answer => answer, :question_id => @question_id })
+  erb(:question)
+end
